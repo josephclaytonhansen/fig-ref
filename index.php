@@ -6,6 +6,7 @@
 </head>
 
 <?php
+ini_set('memory_limit','10240M');
 //get URL param "length"
 if (!isset($_GET['length'])) {
     $length = 'short';
