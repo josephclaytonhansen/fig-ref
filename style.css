@@ -4,6 +4,15 @@ body {
 
 .card-content {
     padding: 1rem;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.card-content button{
+    display:none;
+    font-size:2rem;
+    margin-left:.5rem;
 }
 
 .card-row {
@@ -23,7 +32,7 @@ body {
     margin-bottom:.5rem;
 }
 
-.button-row button{
+button{
     appearance: none;
     background-color:deepskyblue;
     border: none;
@@ -34,7 +43,7 @@ body {
     transition: all 0.2s;
 }
 
-.button-row button:hover{
+button:hover{
     background-color: hsl(195, 100%, 60%);
     color: white;
 }
@@ -44,6 +53,20 @@ body {
     border-radius: 5px;
     margin: .5rem;
     background-color: hsl(0, 0%, 97%);
+    transition: all 0.2s;
+}
+
+.card-clicked{
+    width:60%;
+
+}
+
+.card-clicked button{
+    display:block;
+}
+
+.card-hidden{
+    display:none;
 }
 
 .rect-img-container {
@@ -54,6 +77,10 @@ body {
     content: "";
     display: block;
     padding-bottom: 100%;
+}
+
+.card-clicked .rect-img-container::after{
+    padding-bottom:60%;
 }
 
 .rect-img {
