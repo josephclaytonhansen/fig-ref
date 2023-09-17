@@ -1,0 +1,93 @@
+body {
+    padding: 2rem;
+}
+
+.card-content {
+    padding: 1rem;
+}
+
+.card-row {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .25rem;
+}
+
+.button-row{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .25rem;
+    margin-bottom:.5rem;
+}
+
+.button-row button{
+    appearance: none;
+    background-color:deepskyblue;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    padding: .5rem;
+    transition: all 0.2s;
+}
+
+.button-row button:hover{
+    background-color: hsl(195, 100%, 60%);
+    color: white;
+}
+
+.card {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin: .5rem;
+    background-color: hsl(0, 0%, 97%);
+}
+
+.rect-img-container {
+    position: relative;
+}
+
+.rect-img-container::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.rect-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.timer {
+    width: 200px;
+    height: 200px;
+    background: conic-gradient(#444 0deg, #eee 0deg 170deg);
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(180deg) scaleX(-1);
+}
+
+.cutout {
+    width: 165px;
+    height: 165px;
+    background: white;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.amount {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: 'Lucida Sans', sans-serif;
+    text-align: center;
+    transform: rotate(180deg) scaleX(-1);
+}
