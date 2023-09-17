@@ -46,6 +46,9 @@ function addTrailingZeroToTime($time){
 
 foreach (new DirectoryIterator('./img') as $file) {
     if($file->isDot()) continue;
+    if($file->getFilename() === '.DS_Store') continue;
+    if($file->getFilename() === 'Thumbs.db') continue;
+    if($file->getFilename() === 'images.txt') continue;
     $name = $file->getFilename();
     $images_names[] = $name;
 }
