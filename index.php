@@ -147,7 +147,7 @@ $images_900[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,'
                     if(amount_total <= 0){
                         audioElement.play();
                         setTimeout(function(){
-                            audioElement.pause();
+                            audioElement.stop();
                         }, 2000);
                         clearInterval(interval);
                         $('.card').removeClass('card-clicked');
