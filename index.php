@@ -66,11 +66,11 @@ if ($length === 'short') {
     }
 } else if ($length === 'medium') {
     if ($balance === 'short') {
-        $amounts = [10, 5, 3];
+        $amounts = [7, 5, 3];
     } else if ($balance === 'balanced') {
-        $amounts = [5, 7, 3];
+        $amounts = [5, 6, 3];
     } else if ($balance === 'long') {
-        $amounts = [3, 6, 7];
+        $amounts = [4, 5, 4];
     }
 } else if ($length === 'long') {
     if ($balance === 'short') {
