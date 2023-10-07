@@ -13,6 +13,11 @@ if (!isset($_GET['length'])) {
 } else {
 $length = $_GET['length'];
 }
+if(!isset($_GET['balance'])){
+    $balance = 'balanced';}
+else{
+    $balance = $_GET['balance'];
+}
 $image_datas = array();
 $images_names = array();
 $images_30 = array();
@@ -47,20 +52,34 @@ function addTrailingZeroToTime($time){
 
 foreach (new DirectoryIterator('./img') as $file) {
     if($file->isDot()) continue;
-    if($file->getFilename() === '.DS_Store') continue;
-    if($file->getFilename() === 'Thumbs.db') continue;
-    if($file->getFilename() === 'images.txt') continue;
     $name = $file->getFilename();
     $images_names[] = $name;
 }
 
-
 if ($length === 'short') {
-    $amounts = [5, 4, 3];
+    if ($balance === 'short') {
+        $amounts = [3, 4, 2];
+    } else if ($balance === 'balanced') {
+        $amounts = [5, 4, 3];
+    } else if ($balance === 'long') {
+        $amounts = [2, 2, 5];
+    }
 } else if ($length === 'medium') {
-    $amounts = [10, 5, 3];
+    if ($balance === 'short') {
+        $amounts = [10, 5, 3];
+    } else if ($balance === 'balanced') {
+        $amounts = [5, 7, 3];
+    } else if ($balance === 'long') {
+        $amounts = [3, 6, 7];
+    }
 } else if ($length === 'long') {
-    $amounts = [10, 5, 5];
+    if ($balance === 'short') {
+        $amounts = [10, 5, 5];
+    } else if ($balance === 'balanced') {
+        $amounts = [5, 5, 5];
+    } else if ($balance === 'long') {
+        $amounts = [5, 5, 10];
+    }
 }
 
 $random_keys = array_rand($images_names, $amounts[0]);
@@ -101,6 +120,24 @@ $images_900[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,'
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
     crossorigin="anonymous"></script>
     <script type="text/javascript">
+
+        function changeBalanceURLParam(balance){
+            var url = window.location.href;
+            var url_split = url.split('?');
+            var url_params = url_split[1].split('&');
+            var new_url = url_split[0] + '?';
+            var new_url_params = [];
+            for(var i = 0; i < url_params.length; i++){
+                if(url_params[i].includes('balance')){
+                    new_url_params.push('balance='+balance);
+                }else{
+                    new_url_params.push(url_params[i]);
+                }
+            }
+            new_url = new_url + new_url_params.join('&');
+            window.location.href = new_url;
+        }
+
         $(document).ready(function(){
             var audioElement = document.createElement('audio');
             audioElement.setAttribute('src', 'https://soundbible.com/mp3/Ship_Bell-Mike_Koenig-1911209136.mp3');
@@ -145,9 +182,9 @@ $images_900[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,'
 
                     parent.find('.timer').css('background', gradient);
                     if(amount_total <= 0){
-                        audioElement.play();
+                        audioElement.stop();
                         setTimeout(function(){
-                            audioElement.stop();
+                            audioElement.pause();
                         }, 2000);
                         clearInterval(interval);
                         $('.card').removeClass('card-clicked');
@@ -160,9 +197,14 @@ $images_900[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,'
         });
     </script>
     <div class = "button-row">
-        <button onclick="window.location.href = 'index.php?length=short';">Short</button>
-        <button onclick="window.location.href = 'index.php?length=medium';">Medium</button>
-        <button onclick="window.location.href = 'index.php?length=long';">Long</button>
+        <button onclick="window.location.href = 'index.php?length=short&balance=balanced';">Short</button>
+        <button onclick="window.location.href = 'index.php?length=medium&balance=balanced';">Medium</button>
+        <button onclick="window.location.href = 'index.php?length=long&balance=balanced';">Long</button>
+    </div>
+    <div class = "button-row">
+        <button onclick="changeBalanceURLParam('short')">Veer short</button>
+        <button onclick="changeBalanceURLParam('balanced')">Balanced</button>
+        <button onclick="changeBalanceURLParam('long')">Veer long</button>
     </div>
     <div class = "card-row">
     <?php
