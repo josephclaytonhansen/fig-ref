@@ -74,14 +74,47 @@ if ($length === 'short') {
     }
 } else if ($length === 'long') {
     if ($balance === 'short') {
-        $amounts = [10, 5, 5];
+        $amounts = [7, 5, 3];
     } else if ($balance === 'balanced') {
-        $amounts = [5, 5, 5];
+        $amounts = [5, 6, 3];
     } else if ($balance === 'long') {
-        $amounts = [5, 5, 10];
+        $amounts = [4, 5, 4];
+    }
+} else if ($length === 'long (no 30s)') {
+    if ($balance === 'short') {
+        $amounts = [0, 5, 3];
+    } else if ($balance === 'balanced') {
+        $amounts = [0, 6, 3];
+    } else if ($balance === 'long') {
+        $amounts = [0, 5, 4];
+    }
+} else if ($length === 'medium (no 30s)'){
+    if ($balance === 'short') {
+        $amounts = [0, 5, 3];
+    } else if ($balance === 'balanced') {
+        $amounts = [0, 6, 3];
+    } else if ($balance === 'long') {
+        $amounts = [0, 5, 4];
+    }
+} else if ($length === 'short (no 30s)'){
+    if ($balance === 'short') {
+        $amounts = [0, 4, 2];
+    } else if ($balance === 'balanced') {
+        $amounts = [0, 4, 3];
+    } else if ($balance === 'long') {
+        $amounts = [0, 2, 5];
+    }
+} else if ($length === '>1m'){
+    if ($balance === 'short') {
+        $amounts = [0, 0, 2];
+    } else if ($balance === 'balanced') {
+        $amounts = [0, 0, 3];
+    } else if ($balance === 'long') {
+        $amounts = [0, 0, 5];
     }
 }
 
+if ($amounts[0] > 0){
 $random_keys = array_rand($images_names, $amounts[0]);
 $random_images = array();
 foreach ($random_keys as $key) {
@@ -90,6 +123,8 @@ foreach ($random_keys as $key) {
 foreach ($random_images as $image) {
     $images_30[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents('./img/'.$image));
 }
+}
+if ($amounts[1] > 0){
 $random_keys = array_rand($images_names, $amounts[1]);
 $random_images = array();
 foreach ($random_keys as $key) {
@@ -97,6 +132,7 @@ foreach ($random_keys as $key) {
 }
 foreach ($random_images as $image) {
     $images_60[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents('./img/'.$image));
+}
 }
 $random_keys = array_rand($images_names, $amounts[2]);
 $random_images = array();
@@ -109,7 +145,10 @@ foreach ($random_images as $image) {
 
 if($length === 'medium' || $length === 'long'){
 $images_600[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents('./img/'.$images_names[array_rand($images_names, 1)]));}
-if($length === 'long'){
+if ($length === 'medium (no 30s)' || $length === 'long (no 30s)') {
+    $images_600[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents('./img/' . $images_names[array_rand($images_names, 1)]));
+}
+if($length === 'long' || '>1m'){
 $images_900[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents('./img/'.$images_names[array_rand($images_names, 1)]));
 }
 ?>
@@ -182,7 +221,6 @@ $images_900[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,'
 
                     parent.find('.timer').css('background', gradient);
                     if(amount_total <= 0){
-                        audioElement.stop();
                         setTimeout(function(){
                             audioElement.pause();
                         }, 2000);
@@ -200,6 +238,10 @@ $images_900[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,'
         <button onclick="window.location.href = 'index.php?length=short&balance=balanced';">Short</button>
         <button onclick="window.location.href = 'index.php?length=medium&balance=balanced';">Medium</button>
         <button onclick="window.location.href = 'index.php?length=long&balance=balanced';">Long</button>
+        <button onclick="window.location.href = 'index.php?length=short (no 30s)&balance=balanced';">Short (no 30s)</button>
+        <button onclick="window.location.href = 'index.php?length=medium (no 30s)&balance=balanced';">Medium (no 30s)</button>
+        <button onclick="window.location.href = 'index.php?length=long (no 30s)&balance=balanced';">Long (no 30s)</button>
+        <button onclick="window.location.href = 'index.php?length=>1m&balance=balanced';">1m</button>
     </div>
     <div class = "button-row">
         <button onclick="changeBalanceURLParam('short')">Veer short</button>
