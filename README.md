@@ -1,7 +1,8 @@
 # fig-ref
 This is mostly a replacement for https://line-of-action.com/, with the following unique differences (I see them as improvements, YMMV):
 * Use your own images (no images are provided for copyright reasons!  You must fill up the /img directory with your own images)
-* Preview all images
+* Preview all images in a session
+* You decide the order of images and timers- if you want to do 30s, 5m, 30s, go ahead! 30s, 30s, 1m, etc? Go wild! 
 * Drag and drop images (as a digital artist, the inability to do this on LOA drives me *crazy*, I need to have the reference image side by side on my canvas!)
 * More granular session control
 * No auto-start; you start the timer when you're ready
