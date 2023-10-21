@@ -6,17 +6,11 @@
 </head>
 
 <?php
-ini_set('memory_limit','10240M');
 //get URL param "length"
 if (!isset($_GET['length'])) {
     $length = 'short';
 } else {
 $length = $_GET['length'];
-}
-if(!isset($_GET['balance'])){
-    $balance = 'balanced';}
-else{
-    $balance = $_GET['balance'];
 }
 $image_datas = array();
 $images_names = array();
@@ -52,69 +46,22 @@ function addTrailingZeroToTime($time){
 
 foreach (new DirectoryIterator('./img') as $file) {
     if($file->isDot()) continue;
+    if($file->getFilename() === '.DS_Store') continue;
+    if($file->getFilename() === 'Thumbs.db') continue;
+    if($file->getFilename() === 'images.txt') continue;
     $name = $file->getFilename();
     $images_names[] = $name;
 }
 
+
 if ($length === 'short') {
-    if ($balance === 'short') {
-        $amounts = [3, 4, 2];
-    } else if ($balance === 'balanced') {
-        $amounts = [5, 4, 3];
-    } else if ($balance === 'long') {
-        $amounts = [2, 2, 5];
-    }
+    $amounts = [5, 4, 3];
 } else if ($length === 'medium') {
-    if ($balance === 'short') {
-        $amounts = [7, 5, 3];
-    } else if ($balance === 'balanced') {
-        $amounts = [5, 6, 3];
-    } else if ($balance === 'long') {
-        $amounts = [4, 5, 4];
-    }
+    $amounts = [10, 5, 3];
 } else if ($length === 'long') {
-    if ($balance === 'short') {
-        $amounts = [7, 5, 3];
-    } else if ($balance === 'balanced') {
-        $amounts = [5, 6, 3];
-    } else if ($balance === 'long') {
-        $amounts = [4, 5, 4];
-    }
-} else if ($length === 'long (no 30s)') {
-    if ($balance === 'short') {
-        $amounts = [0, 5, 3];
-    } else if ($balance === 'balanced') {
-        $amounts = [0, 6, 3];
-    } else if ($balance === 'long') {
-        $amounts = [0, 5, 4];
-    }
-} else if ($length === 'medium (no 30s)'){
-    if ($balance === 'short') {
-        $amounts = [0, 5, 3];
-    } else if ($balance === 'balanced') {
-        $amounts = [0, 6, 3];
-    } else if ($balance === 'long') {
-        $amounts = [0, 5, 4];
-    }
-} else if ($length === 'short (no 30s)'){
-    if ($balance === 'short') {
-        $amounts = [0, 4, 2];
-    } else if ($balance === 'balanced') {
-        $amounts = [0, 4, 3];
-    } else if ($balance === 'long') {
-        $amounts = [0, 2, 5];
-    }
-} else if ($length === '>1m'){
-    if ($balance === 'short') {
-        $amounts = [0, 0, 2];
-    } else if ($balance === 'balanced') {
-        $amounts = [0, 0, 3];
-    } else if ($balance === 'long') {
-        $amounts = [0, 0, 5];
-    }
+    $amounts = [10, 5, 5];
 }
 
-if ($amounts[0] > 0){
 $random_keys = array_rand($images_names, $amounts[0]);
 $random_images = array();
 foreach ($random_keys as $key) {
@@ -123,8 +70,6 @@ foreach ($random_keys as $key) {
 foreach ($random_images as $image) {
     $images_30[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents('./img/'.$image));
 }
-}
-if ($amounts[1] > 0){
 $random_keys = array_rand($images_names, $amounts[1]);
 $random_images = array();
 foreach ($random_keys as $key) {
@@ -132,7 +77,6 @@ foreach ($random_keys as $key) {
 }
 foreach ($random_images as $image) {
     $images_60[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents('./img/'.$image));
-}
 }
 $random_keys = array_rand($images_names, $amounts[2]);
 $random_images = array();
@@ -143,12 +87,9 @@ foreach ($random_images as $image) {
     $images_300[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents('./img/'.$image));
 }
 
-if($length === 'medium' || $length === 'long' || $length === '>1m'){
+if($length === 'medium' || $length === 'long'){
 $images_600[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents('./img/'.$images_names[array_rand($images_names, 1)]));}
-if ($length === 'medium (no 30s)' || $length === 'long (no 30s)') {
-    $images_600[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents('./img/' . $images_names[array_rand($images_names, 1)]));
-}
-if($length === 'long' || '>1m'){
+if($length === 'long'){
 $images_900[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents('./img/'.$images_names[array_rand($images_names, 1)]));
 }
 ?>
@@ -159,24 +100,6 @@ $images_900[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,'
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
     crossorigin="anonymous"></script>
     <script type="text/javascript">
-
-        function changeBalanceURLParam(balance){
-            var url = window.location.href;
-            var url_split = url.split('?');
-            var url_params = url_split[1].split('&');
-            var new_url = url_split[0] + '?';
-            var new_url_params = [];
-            for(var i = 0; i < url_params.length; i++){
-                if(url_params[i].includes('balance')){
-                    new_url_params.push('balance='+balance);
-                }else{
-                    new_url_params.push(url_params[i]);
-                }
-            }
-            new_url = new_url + new_url_params.join('&');
-            window.location.href = new_url;
-        }
-
         $(document).ready(function(){
             var audioElement = document.createElement('audio');
             audioElement.setAttribute('src', 'https://soundbible.com/mp3/Ship_Bell-Mike_Koenig-1911209136.mp3');
@@ -221,6 +144,7 @@ $images_900[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,'
 
                     parent.find('.timer').css('background', gradient);
                     if(amount_total <= 0){
+                        audioElement.play();
                         setTimeout(function(){
                             audioElement.pause();
                         }, 2000);
