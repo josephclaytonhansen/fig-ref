@@ -1,2 +1,5 @@
 img/*.*
+img/exclude
+hands
+cube_ref
 !images.txt
