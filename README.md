@@ -19,6 +19,9 @@ On the flip side, you have to run this yourself on a local PHP server, which mak
 ## Usage
 Download. Run a local PHP server. (Google it) 
 
+### Locking images
+Clicking "Lock Images" will save a text file to your downloads called "lock.txt". Move this to your fig-ref directory, and those images will load until you remove or replace that lock.txt file. 
+
 ## Credits
 Inspirationally, this is a remix of line-of-action.com.
 *Bell sound from Mike Koenig via [SoundBible](https://soundbible.com/1746-Ship-Bell.html)*
