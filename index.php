@@ -235,18 +235,9 @@ $images_900[] = 'data:image/' . pathinfo($name, PATHINFO_EXTENSION) . ';base64,'
         });
     </script>
     <div class = "button-row">
-        <button onclick="window.location.href = 'index.php?length=short&balance=balanced';">Short</button>
-        <button onclick="window.location.href = 'index.php?length=medium&balance=balanced';">Medium</button>
-        <button onclick="window.location.href = 'index.php?length=long&balance=balanced';">Long</button>
-        <button onclick="window.location.href = 'index.php?length=short (no 30s)&balance=balanced';">Short (no 30s)</button>
-        <button onclick="window.location.href = 'index.php?length=medium (no 30s)&balance=balanced';">Medium (no 30s)</button>
-        <button onclick="window.location.href = 'index.php?length=long (no 30s)&balance=balanced';">Long (no 30s)</button>
-        <button onclick="window.location.href = 'index.php?length=>1m&balance=balanced';">>1m</button>
-    </div>
-    <div class = "button-row">
-        <button onclick="changeBalanceURLParam('short')">Veer short</button>
-        <button onclick="changeBalanceURLParam('balanced')">Balanced</button>
-        <button onclick="changeBalanceURLParam('long')">Veer long</button>
+        <button onclick="window.location.href = 'index.php?length=short';">Short</button>
+        <button onclick="window.location.href = 'index.php?length=medium';">Medium</button>
+        <button onclick="window.location.href = 'index.php?length=long';">Long</button>
     </div>
     <div class = "card-row">
     <?php
